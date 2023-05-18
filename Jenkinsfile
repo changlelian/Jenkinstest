@@ -1,13 +1,10 @@
 pipeline {
     agent any
     stages {
-        stage('Run Python Script') {
+        stage('Build') {
             steps {
-                script {
-                    
-                    // 运行Python脚本
-                    bat 'MyJenkinsTest\\name.py'
-                }
+                bat 'cd E:\\Jenkins_workspace' // 切换到自定义工作目录
+                bat 'python MyJenkinsTest\\name.py' // 在自定义工作目录中执行构建步骤
             }
         }
     }
