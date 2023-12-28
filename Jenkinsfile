@@ -4,7 +4,7 @@ pipeline {
 
         stage('docker container'){
             steps {
-                sh 'echo mechmind | sudo -S docker run -v /home/MechMindSDK:/home --name APITest mecheyeenvimage'
+                sh 'echo "mechmind" | sudo -S docker run -v /home/MechMindSDK:/home --name APITest mecheyeenvimage'
             }
         }
 
