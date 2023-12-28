@@ -17,7 +17,7 @@ pipeline {
 
         stage('execute test commands'){
             steps {
-                sh 'sudo docker exec APITest sh new_ubuntu_build.sh'
+                sh 'sudo docker exec APITest sh /home/new_ubuntu_build.sh'
             }
         }
 
