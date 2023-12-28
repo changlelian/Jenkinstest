@@ -4,14 +4,13 @@ pipeline {
 
         stage('docker container'){
             steps {
-                sh 'docker run -v /home/MechMindSDK:/home --name APITest mecheyeenvimage'
-                sh 'python3 MyJenkinsTest/name.py' // 在自定义工作目录中执行构建步骤
+                sh 'sudo docker run -v /home/MechMindSDK:/home --name APITest mecheyeenvimage'
             }
         }
 
         stage('execute commands'){
             steps {
-                sh 'docker exec APITest echo Hello from inside Docker container'
+                sh 'sudo docker exec APITest echo Hello from inside Docker container'
             }
         }
 
