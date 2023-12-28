@@ -21,6 +21,12 @@ pipeline {
             }
         }
 
+        stage('docker release'){
+            steps {
+                sh 'sudo docker stop APITest'
+                sh 'sudo docker rm APITest'
+            }
+        }
 
     }
 }
