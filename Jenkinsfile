@@ -15,13 +15,11 @@ pipeline {
             }
         }
 
-        stage('execute commands'){
+        stage('execute test commands'){
             steps {
-                sh 'sudo docker exec APITest echo Hello from inside Docker container'
+                sh 'sudo docker exec APITest sh new_ubuntu_build.sh'
             }
         }
-
-
 
 
     }
