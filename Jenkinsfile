@@ -4,7 +4,7 @@ pipeline {
 
         stage('docker container'){
             steps {
-                sh 'sudo docker run -v /home/MechMindSDK:/home --name APITest mecheyeenvimage'
+                sh 'echo mechmind | sudo -S docker run -v /home/MechMindSDK:/home --name APITest mecheyeenvimage'
             }
         }
 
@@ -16,7 +16,7 @@ pipeline {
 
         stage('clone test code') {
             steps {
-                sh 'cd /var/jenkins_home/workspace/' // 切换到自定义工作目录
+                sh 'cd /var/lib/jenkins/workspace/' // 切换到自定义工作目录
                 sh 'python3 MyJenkinsTest/name.py' // 在自定义工作目录中执行构建步骤
             }
         }
