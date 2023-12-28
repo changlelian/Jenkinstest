@@ -11,7 +11,8 @@ pipeline {
 
         stage('clone test code') {
             steps {
-                sh 'docker exec APITest git clone https://github.com/changlelian/Jenkinstest.git' // 切换到自定义工作目录
+                sh 'sudo docker exec APITest git clone https://github.com/changlelian/Jenkinstest.git'
+                sh 'cd /home/Jenkinstest'
                 sh 'echo "裹裹牛"'
             }
         }
