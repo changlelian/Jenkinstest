@@ -19,16 +19,16 @@ pipeline {
 
         stage('execute test commands'){
             steps {
-                sh 'sudo docker exec APITest sh /home/Jenkinstest/MyJenkinsTest/ubuntu_build.sh'
+                sh 'sudo docker exec APITest sh /Jenkinstest/MyJenkinsTest/ubuntu_build.sh'
             }
         }
 
-        // stage('docker release'){
-        //     steps {
-        //         sh 'sudo docker stop APITest'
-        //         sh 'sudo docker rm APITest'
-        //     }
-        // }
+        stage('docker release'){
+            steps {
+                sh 'sudo docker stop APITest'
+                sh 'sudo docker rm APITest'
+            }
+        }
 
     }
 }
