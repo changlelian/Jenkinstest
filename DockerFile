@@ -1,0 +1,17 @@
+FROM ubuntu:focal
+MAINTAINER lianchangle<lian.changle@mechmind.net>
+
+RUN apt-get update
+# install cmake
+RUN apt-get install -y build-essential pkg-config cmake
+# install pcl
+RUN apt-get install libpcl-dev
+# install opencv
+RUN apt update && sudo apt install -y unzip
+RUN -O opencv.zip https://github.com/opencv/opencv/archive/4.x.zip
+RUN unzip opencv.zip
+RUN mkdir build && cd build
+RUN cmake ../opencv-4.x
+RUN cmake --build .
+RUN make install
+
