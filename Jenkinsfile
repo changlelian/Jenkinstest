@@ -1,17 +1,18 @@
 pipeline {
     agent any
     stages{
-        stage('clone test code') {
-            steps {
-                sh 'cd /var/lib/jenkins/workspace/' // 切换到自定义工作目录
-                sh 'python3 MyJenkinsTest/name.py' // 在自定义工作目录中执行构建步骤
-            }
-        }
 
-        stage('docker container'){
+        stage('build docker container'){
             steps {
                 sh 'sudo docker run -d -t -v /home/MechMindSDK:/home --name APITest mecheyeenvimage'
                 sh 'sudo docker start APITest'
+            }
+        }
+
+        stage('clone test code') {
+            steps {
+                sh 'docker exec APITest git clone https://github.com/changlelian/Jenkinstest.git' // 切换到自定义工作目录
+                sh 'echo "裹裹牛"'
             }
         }
 
