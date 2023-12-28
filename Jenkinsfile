@@ -19,7 +19,7 @@ pipeline {
 
         stage('execute test commands'){
             steps {
-                sh 'sudo docker exec APITest sh /home/Jenkinstest/ubuntu_build.sh'
+                sh 'sudo docker exec APITest sh /home/Jenkinstest/MyJenkinsTest/ubuntu_build.sh'
             }
         }
 
