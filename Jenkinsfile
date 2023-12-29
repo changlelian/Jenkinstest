@@ -57,8 +57,6 @@ pipeline {
                         }
                     }
                 }
-            }
-        }
 
             stage('Test python camera interface in linux') {
                     steps {
@@ -76,13 +74,13 @@ pipeline {
                         }
                     }
                 }
-            }
         }
 
-        stage('Release Environment'){
-            steps{
-                    sh 'echo "裹裹小二牛hao"'
+            stage('Release Environment'){
+                steps{
+                        sh 'echo "裹裹小二牛hao"'
 
+                }
             }
         }
     }
