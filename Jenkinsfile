@@ -52,8 +52,7 @@ pipeline {
                 stage('Docker Release') {
                     steps {
                         script {
-                            sh 'echo "裹裹小牛"'
-                            sh 'sudo docker rm APITest'
+                            sh 'echo "裹裹小牛hao"'
                         }
                     }
                 }
