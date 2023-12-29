@@ -59,11 +59,12 @@ pipeline {
                             sh 'sudo docker run -d -t -v /home/MechMindSDK:/home --name APITestInterface mecheyeenvimage'
                             sh 'sudo docker start APITestInterface'
                             sh 'sudo docker exec APITestInterface git clone https://github.com/changlelian/Jenkinstest.git'
+
                             sh 'sudo docker exec APITest sh /Jenkinstest/installer.sh'
-                            sh 'sudo docker exec APITestInterface mkdir -p /Jenkinstest/APITest/build'
-                            sh 'sudo docker exec APITestInterface cmake -S /Jenkinstest/APITest -B /Jenkinstest/APITest/build'
-                            sh 'sudo docker exec APITestInterface make -C /Jenkinstest/APITest/build'
-                            sh 'sudo docker exec APITestInterface /Jenkinstest/APITest/build/TestMechMindSDK --gtest_filter=*Camera* --ip=192.168.20.45'
+                            sh 'sudo docker exec APITestInterface mkdir -p /Jenkinstest/APITestInterface/build'
+                            sh 'sudo docker exec APITestInterface cmake -S /Jenkinstest/APITestInterface -B /Jenkinstest/APITestInterface/build'
+                            sh 'sudo docker exec APITestInterface make -C /Jenkinstest/APITestInterface/build'
+                            sh 'sudo docker exec APITestInterface /Jenkinstest/APITestInterface/build/TestMechMindSDK --gtest_filter=*Camera* --ip=192.168.20.45'
                             sh 'echo "裹裹小牛hao"'
 
                             sh 'sudo docker stop APITestInterface'
