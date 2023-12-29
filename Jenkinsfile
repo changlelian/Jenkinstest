@@ -38,7 +38,7 @@ pipeline {
     stages {
         stage('Parallel Stages') {
             parallel {
-                stage('Serial Execution') {
+                stage('Build cpp amd64 samples') {
                     steps {
                         script {
                             sh 'sudo docker run -d -t -v /home/MechMindSDK:/home --name APITest mecheyeenvimage'
@@ -46,6 +46,9 @@ pipeline {
                             sh 'sudo docker exec APITest git clone https://github.com/changlelian/Jenkinstest.git'
                             sh 'sudo docker exec APITest echo "裹裹大牛"'
                             sh 'sudo docker exec APITest sh /Jenkinstest/ubuntu_build.sh'
+
+                            sh 'sudo docker stop APITest'
+                            sh 'sudo docker rm APITest'
                         }
                     }
                 }
@@ -60,8 +63,8 @@ pipeline {
         }
         stage('Release Environment'){
             steps{
-                    sh 'sudo docker stop APITest'
-                    sh 'sudo docker rm APITest'
+                    sh 'echo "裹裹小二牛hao"'
+
             }
         }
     }
