@@ -50,7 +50,7 @@ pipeline {
                             sh 'sudo docker exec APITestProfilerInterface mkdir -p /Jenkinstest/APITest/build'
                             sh 'sudo docker exec APITestProfilerInterface cmake -S /Jenkinstest/APITest -B /Jenkinstest/APITest/build'
                             sh 'sudo docker exec APITestProfilerInterface make -C /Jenkinstest/APITest/build'
-                            sh 'sudo docker exec APITestProfilerInterface /Jenkinstest/APITest/build/TestMechMindSDK --gtest_filter=*Profiler* --ip=192.168.20.45'
+                            sh 'sudo docker exec APITestProfilerInterface /Jenkinstest/APITest/build/TestMechMindSDK --gtest_filter=*Profiler* --ip=192.168.20.254'
                             sh 'echo "裹裹小牛hao"'
 
                             sh 'sudo docker stop APITestProfilerInterface'
