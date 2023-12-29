@@ -46,9 +46,6 @@ pipeline {
                             sh 'sudo docker exec APITest git clone https://github.com/changlelian/Jenkinstest.git'
                             sh 'sudo docker exec APITest echo "裹裹大牛"'
                             sh 'sudo docker exec APITest sh /Jenkinstest/ubuntu_build.sh'
-
-                            sh 'sudo docker stop APITest'
-                            sh 'sudo docker rm APITest'
                         }
                     }
                 }
@@ -60,6 +57,12 @@ pipeline {
                         }
                     }
                 }
+            }
+        }
+        stage('Release Environment'){
+            steps{
+                    sh 'sudo docker stop APITest'
+                    sh 'sudo docker rm APITest'
             }
         }
     }
