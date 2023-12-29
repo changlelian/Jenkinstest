@@ -64,10 +64,10 @@ pipeline {
                             sh 'sudo docker run -d -t -v /home/MechMindSDK:/home --name APITestPythonCameraInterface mecheyeenvimage'
                             sh 'sudo docker start APITestPythonCameraInterface'
                             sh 'sudo docker exec APITestPythonCameraInterface git clone https://github.com/changlelian/Jenkinstest.git'
-
-                            sh 'sudo docker exec APITestPythonCameraInterface sh /Jenkinstest/APITest/installer.sh'
                             sh 'sudo docker exec APITestPythonCameraInterface python3 -m pip install --upgrade pip -i https://pypi.tuna.tsinghua.edu.cn/simple'
-                            sh 'sudo docker exec APITestPythonCameraInterface python3 -m pip install /home/*38*.whl'
+                            
+                            sh 'sudo docker exec APITestPythonCameraInterface sh /Jenkinstest/APITestPy/installer.sh'
+                            // sh 'sudo docker exec APITestPythonCameraInterface python3 -m pip install /home/*38*.whl -i https://pypi.tuna.tsinghua.edu.cn/simple'
                             sh 'sudo docker exec APITestPythonCameraInterface python3 -m pip install -r /Jenkinstest/APITestPy/requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple'
                             sh 'sudo docker exec APITestPythonCameraInterface python3 /Jenkinstest/APITestPy/main.py 192.168.20.7'
 
