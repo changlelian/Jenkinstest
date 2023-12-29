@@ -29,7 +29,7 @@ pipeline {
                             sh 'sudo docker exec APITestCameraInterface mkdir -p /Jenkinstest/APITest/build'
                             sh 'sudo docker exec APITestCameraInterface cmake -S /Jenkinstest/APITest -B /Jenkinstest/APITest/build'
                             sh 'sudo docker exec APITestCameraInterface make -C /Jenkinstest/APITest/build'
-                            sh 'sudo docker exec APITestCameraInterface /Jenkinstest/APITest/build/TestMechMindSDK --gtest_filter=*Camera* --ip=192.168.20.45'
+                            sh 'sudo docker exec APITestCameraInterface /Jenkinstest/APITest/build/TestMechMindSDK --gtest_filter=*Camera* --ip=192.168.20.173'
                             sh 'echo "裹裹小牛hao"'
 
                             sh 'sudo docker stop APITestCameraInterface'
