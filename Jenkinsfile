@@ -38,20 +38,20 @@ pipeline {
     stages {
         stage('Parallel Stages') {
             parallel {
-                stage('Build cpp amd64 samples') {
-                    steps {
-                        script {
-                            sh 'sudo docker run -d -t -v /home/MechMindSDK:/home --name APITest mecheyeenvimage'
-                            sh 'sudo docker start APITest'
-                            sh 'sudo docker exec APITest git clone https://github.com/changlelian/Jenkinstest.git'
-                            sh 'sudo docker exec APITest echo "裹裹大牛"'
-                            sh 'sudo docker exec APITest sh /Jenkinstest/ubuntu_build.sh'
+                // stage('Build cpp amd64 samples') {
+                //     steps {
+                //         script {
+                //             sh 'sudo docker run -d -t -v /home/MechMindSDK:/home --name APITest mecheyeenvimage'
+                //             sh 'sudo docker start APITest'
+                //             sh 'sudo docker exec APITest git clone https://github.com/changlelian/Jenkinstest.git'
+                //             sh 'sudo docker exec APITest echo "裹裹大牛"'
+                //             sh 'sudo docker exec APITest sh /Jenkinstest/ubuntu_build.sh'
 
-                            sh 'sudo docker stop APITest'
-                            sh 'sudo docker rm APITest'
-                        }
-                    }
-                }
+                //             sh 'sudo docker stop APITest'
+                //             sh 'sudo docker rm APITest'
+                //         }
+                //     }
+                // }
                 stage('Test cpp interface in linux') {
                     steps {
                         script {
