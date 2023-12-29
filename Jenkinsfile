@@ -58,7 +58,7 @@ pipeline {
                     }
                 }
 
-            stage('Test python camera interface in linux') {
+                stage('Test python camera interface in linux') {
                     steps {
                         script {
                             sh 'sudo docker run -d -t -v /home/MechMindSDK:/home --name APITestPythonCameraInterface mecheyeenvimage'
@@ -74,13 +74,12 @@ pipeline {
                         }
                     }
                 }
+            }
         }
 
-            stage('Release Environment'){
-                steps{
-                        sh 'echo "裹裹小二牛hao"'
-
-                }
+        stage('Release Environment'){
+            steps{
+                    sh 'echo "裹裹小二牛hao"'
             }
         }
     }
