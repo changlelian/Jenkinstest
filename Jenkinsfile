@@ -60,7 +60,7 @@ pipeline {
                             sh 'sudo docker start APITestInterface'
                             sh 'sudo docker exec APITestInterface git clone https://github.com/changlelian/Jenkinstest.git'
 
-                            sh 'sudo docker exec APITest sh /Jenkinstest/installer.sh'
+                            sh 'sudo docker exec APITestInterface sh /Jenkinstest/installer.sh'
                             sh 'sudo docker exec APITestInterface mkdir -p /Jenkinstest/APITestInterface/build'
                             sh 'sudo docker exec APITestInterface cmake -S /Jenkinstest/APITestInterface -B /Jenkinstest/APITestInterface/build'
                             sh 'sudo docker exec APITestInterface make -C /Jenkinstest/APITestInterface/build'
