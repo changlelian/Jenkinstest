@@ -7,7 +7,7 @@ dpkg -P MechEyeApi
 rm -rf /opt/mech-mind
 
 
-dpkg -i /home/MechEyeApi_2.2.0_amd64.deb
+dpkg -i /home/MechEyeApi_*_amd64.deb
 
 # sample path 
 samples_path=/opt/mech-mind/mech-eye-sdk/samples/cpp/
