@@ -33,37 +33,29 @@
 // }
 
 
-
 pipeline {
     agent any
     stages {
-        stage('Serial and Parallel Stages') {
+        stage('Parallel Stages') {
             parallel {
-                stage('Serial Stages') {
+                stage('Serial Execution') {
                     steps {
                         script {
-                            stage('build docker container') {
-                                sh 'sudo docker run -d -t -v /home/MechMindSDK:/home --name APITest mecheyeenvimage'
-                                sh 'sudo docker start APITest'
-                            }
-                            stage('clone test code') {
-                                sh 'sudo docker exec APITest git clone https://github.com/changlelian/Jenkinstest.git'
-                                sh 'sudo docker exec APITest echo "裹裹牛"'
-                            }
-                            stage('execute test commands') {
-                                sh 'sudo docker exec APITest sh /Jenkinstest/ubuntu_build.sh'
-                            }
-                            stage('Docker Release') {
-                                steps {
-                                    sh 'sudo docker stop APITest'
-                                    sh 'sudo docker rm APITest'
-                                }
-                            }
+                            sh 'sudo docker run -d -t -v /home/MechMindSDK:/home --name APITest mecheyeenvimage'
+                            sh 'sudo docker start APITest'
+                            sh 'sudo docker exec APITest git clone https://github.com/changlelian/Jenkinstest.git'
+                            sh 'sudo docker exec APITest echo "裹裹大牛"'
+                            sh 'sudo docker exec APITest sh /Jenkinstest/ubuntu_build.sh'
+
+                            sh 'sudo docker stop APITest'
+                            sh 'sudo docker rm APITest'
                         }
                     }
-                    stage('Docker Release') {
-                        steps {
-                            sh 'sudo docker stop APITest'
+                }
+                stage('Docker Release') {
+                    steps {
+                        script {
+                            sh 'echo "裹裹小牛"'
                             sh 'sudo docker rm APITest'
                         }
                     }
