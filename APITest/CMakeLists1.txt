@@ -1,0 +1,107 @@
+cmake_minimum_required(VERSION 3.12)
+
+project(GoogleTestMechMindSDK)
+
+# 设置源文件和头文件的路径
+set(SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/GoogleTestMechMindSDK.cpp)
+
+set(INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
+set(TEST_CASE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/test_case)
+
+
+set(MIN_EYE_VERSION 2.2.0)
+
+# 设置Debug模式下的可执行文件输出路径
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_BINARY_DIR}/bin/Debug)
+
+# 设置Release模式下的可执行文件输出路径
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_BINARY_DIR}/bin/Release)
+
+# 添加可执行文件
+add_executable(GoogleTestMechMindSDK ${SOURCES} ${CMAKE_CURRENT_SOURCE_DIR}/test_case/TestCameraEnvironment.cpp)
+
+
+# 添加头文件的搜索路径
+target_include_directories(GoogleTestMechMindSDK PRIVATE ${INCLUDE_DIR} )
+target_include_directories(GoogleTestMechMindSDK PRIVATE ${TEST_CASE_DIR})
+
+# 设置GTest调试和发布版本的库文件路径
+set(DEBUG_LIB_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lib/debug)
+set(RELEASE_LIB_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lib/release)
+
+# 根据构建类型选择不同的库文件路径和后缀
+if(CMAKE_BUILD_TYPE MATCHES Debug)
+    # 调试模式
+    target_link_directories(GoogleTestMechMindSDK PRIVATE ${DEBUG_LIB_DIR})
+    target_link_libraries(GoogleTestMechMindSDK PRIVATE gmock_main gtest_main)
+
+    # 设置调试模式下的编译选项
+    target_compile_definitions(GoogleTestMechMindSDK PRIVATE _ITERATOR_DEBUG_LEVEL=2)
+    
+    if(WIN32)
+        find_package(MechEyeApi ${MIN_EYE_VERSION} REQUIRED CONFIG PATHS "$ENV{MECHEYE_DIR}/API")
+        if(NOT MechEyeApi_FOUND)
+            message(FATAL_ERROR "MechEyeApi not found. Please install MechEyeApi with version ${MIN_EYE_VERSION} or higher.")
+        endif()
+
+        # 添加mecheye lib_debug文件的搜索路径
+        target_link_directories(GoogleTestMechMindSDK PRIVATE "$ENV{MECHEYE_DIR}/API/lib_debug")
+        target_link_libraries(GoogleTestMechMindSDK PRIVATE MechEyeApid)
+
+        target_compile_options(GoogleTestMechMindSDK PRIVATE /MDd)
+    else()
+        find_package(Threads REQUIRED)
+        target_link_libraries(GoogleTestMechMindSDK PRIVATE Threads::Threads)
+        target_compile_options(GoogleTestMechMindSDK PRIVATE -g)
+    endif()
+else()
+    # 发布模式
+    target_link_directories(GoogleTestMechMindSDK PRIVATE ${RELEASE_LIB_DIR})
+    target_link_libraries(GoogleTestMechMindSDK PRIVATE gmock_main gtest_main)
+
+    # 添加mecheye lib文件的搜索路径
+    target_link_directories(GoogleTestMechMindSDK PRIVATE "$ENV{MECHEYE_DIR}/API/lib")
+    target_link_libraries(GoogleTestMechMindSDK PRIVATE MechEyeApi)
+
+    # 设置发布模式下的编译选项
+    target_compile_definitions(GoogleTestMechMindSDK PRIVATE _ITERATOR_DEBUG_LEVEL=0)
+    
+    if(WIN32)
+        find_package(MechEyeApi ${MIN_EYE_VERSION} REQUIRED CONFIG PATHS "$ENV{MECHEYE_DIR}/API")
+        if(NOT MechEyeApi_FOUND)
+            message(FATAL_ERROR "MechEyeApi not found. Please install MechEyeApi with version ${MIN_EYE_VERSION} or higher.")
+        endif()
+
+        target_compile_options(GoogleTestMechMindSDK PRIVATE /MD)
+    else()
+        find_package(Threads REQUIRED)
+        target_link_libraries(GoogleTestMechMindSDK PRIVATE Threads::Threads)
+        target_compile_options(GoogleTestMechMindSDK PRIVATE -O3)
+
+        # ubuntu下查找MechEye库
+        find_package(PkgConfig)
+        if(NOT PkgConfig_FOUND)
+            message(FATAL_ERROR "PkgConfig not found.")
+        else()
+            pkg_check_modules(MECHEYEAPI REQUIRED MechEyeApi>=${MIN_EYE_VERSION})
+            if(NOT MECHEYEAPI_FOUND)
+                message(FATAL_ERROR "MechEyeApi not found. Please install MechEyeApi with version ${MIN_EYE_VERSION} or higher.")
+            endif()
+        endif()
+    endif()
+endif()
+
+find_package(OpenCV REQUIRED)
+if(NOT OpenCV_FOUND)
+  message(
+    FATAL_ERROR
+      "OpenCV not found. Please point OpenCV_DIR to the directory of your OpenCV installation (containing the file OpenCVConfig.cmake)."
+  )
+endif()
+
+# 链接MechEye头文件库和DLL库
+include_directories(${MECHEYEAPI_INCLUDE_DIRS})
+link_directories(${MECHEYEAPI_LIBRARY_DIRS} ${OpenCV_INCLUDE_DIRS})
+
+# 链接共享库文件
+target_link_libraries(GoogleTestMechMindSDK PRIVATE gmock gtest ${OpenCV_LIBS})
