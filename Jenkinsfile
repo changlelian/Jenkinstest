@@ -1,38 +1,3 @@
-// pipeline {
-//     agent any
-//     stages{
-//         stage('build docker container'){
-//             steps {
-//                 sh 'sudo docker run -d -t -v /home/MechMindSDK:/home --name APITest mecheyeenvimage'
-//                 sh 'sudo docker start APITest'
-//             }
-//         }
-
-//         stage('clone test code') {
-//             steps {
-//                 sh 'sudo docker exec APITest git clone https://github.com/changlelian/Jenkinstest.git'
-//                 // sh 'cd /home/Jenkinstest'
-//                 sh 'sudo docker exec APITest echo "裹裹牛"'
-//             }
-//         }
-
-//         stage('execute test commands'){
-//             steps {
-//                 sh 'sudo docker exec APITest sh /Jenkinstest/ubuntu_build.sh'
-//             }
-//         }
-
-//         stage('docker release'){
-//             steps {
-//                 sh 'sudo docker stop APITest'
-//                 sh 'sudo docker rm APITest'
-//             }
-//         }
-
-//     }
-// }
-
-
 pipeline {
     agent any
     stages {
@@ -53,22 +18,43 @@ pipeline {
                     }
                 }
 
-                stage('Test cpp interface in linux') {
+                stage('Test cpp camera interface in linux') {
                     steps {
                         script {
-                            sh 'sudo docker run -d -t -v /home/MechMindSDK:/home --name APITestInterface mecheyeenvimage'
-                            sh 'sudo docker start APITestInterface'
-                            sh 'sudo docker exec APITestInterface git clone https://github.com/changlelian/Jenkinstest.git'
+                            sh 'sudo docker run -d -t -v /home/MechMindSDK:/home --name APITestCameraInterface mecheyeenvimage'
+                            sh 'sudo docker start APITestCameraInterface'
+                            sh 'sudo docker exec APITestCameraInterface git clone https://github.com/changlelian/Jenkinstest.git'
 
-                            sh 'sudo docker exec APITestInterface sh /Jenkinstest/APITest/installer.sh'
-                            sh 'sudo docker exec APITestInterface mkdir -p /Jenkinstest/APITest/build'
-                            sh 'sudo docker exec APITestInterface cmake -S /Jenkinstest/APITest -B /Jenkinstest/APITest/build'
-                            sh 'sudo docker exec APITestInterface make -C /Jenkinstest/APITest/build'
-                            sh 'sudo docker exec APITestInterface /Jenkinstest/APITest/build/TestMechMindSDK --gtest_filter=*Camera* --ip=192.168.20.45'
+                            sh 'sudo docker exec APITestCameraInterface sh /Jenkinstest/APITest/installer.sh'
+                            sh 'sudo docker exec APITestCameraInterface mkdir -p /Jenkinstest/APITest/build'
+                            sh 'sudo docker exec APITestCameraInterface cmake -S /Jenkinstest/APITest -B /Jenkinstest/APITest/build'
+                            sh 'sudo docker exec APITestCameraInterface make -C /Jenkinstest/APITest/build'
+                            sh 'sudo docker exec APITestCameraInterface /Jenkinstest/APITest/build/TestMechMindSDK --gtest_filter=*Camera* --ip=192.168.20.45'
                             sh 'echo "裹裹小牛hao"'
 
-                            sh 'sudo docker stop APITestInterface'
-                            sh 'sudo docker rm APITestInterface'
+                            sh 'sudo docker stop APITestCameraInterface'
+                            sh 'sudo docker rm APITestCameraInterface'
+                        }
+                    }
+                }
+
+                
+                stage('Test cpp profiler interface in linux') {
+                    steps {
+                        script {
+                            sh 'sudo docker run -d -t -v /home/MechMindSDK:/home --name APITestProfilerInterface mecheyeenvimage'
+                            sh 'sudo docker start APITestProfilerInterface'
+                            sh 'sudo docker exec APITestProfilerInterface git clone https://github.com/changlelian/Jenkinstest.git'
+
+                            sh 'sudo docker exec APITestProfilerInterface sh /Jenkinstest/APITest/installer.sh'
+                            sh 'sudo docker exec APITestProfilerInterface mkdir -p /Jenkinstest/APITest/build'
+                            sh 'sudo docker exec APITestProfilerInterface cmake -S /Jenkinstest/APITest -B /Jenkinstest/APITest/build'
+                            sh 'sudo docker exec APITestProfilerInterface make -C /Jenkinstest/APITest/build'
+                            sh 'sudo docker exec APITestProfilerInterface /Jenkinstest/APITest/build/TestMechMindSDK --gtest_filter=*Profiler* --ip=192.168.20.45'
+                            sh 'echo "裹裹小牛hao"'
+
+                            sh 'sudo docker stop APITestProfilerInterface'
+                            sh 'sudo docker rm APITestProfilerInterface'
                         }
                     }
                 }
