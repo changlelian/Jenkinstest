@@ -1,0 +1,1 @@
+dpkg -i /home/*_amd64.deb
