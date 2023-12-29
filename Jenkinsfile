@@ -38,7 +38,6 @@ pipeline {
                     }
                 }
 
-                
                 stage('Test cpp profiler interface in linux') {
                     steps {
                         script {
@@ -55,6 +54,25 @@ pipeline {
 
                             sh 'sudo docker stop APITestProfilerInterface'
                             sh 'sudo docker rm APITestProfilerInterface'
+                        }
+                    }
+                }
+            }
+        }
+
+            stage('Test python camera interface in linux') {
+                    steps {
+                        script {
+                            sh 'sudo docker run -d -t -v /home/MechMindSDK:/home --name APITestPythonCameraInterface mecheyeenvimage'
+                            sh 'sudo docker start APITestPythonCameraInterface'
+                            sh 'sudo docker exec APITestPythonCameraInterface git clone https://github.com/changlelian/Jenkinstest.git'
+
+                            sh 'sudo docker exec APITestPythonCameraInterface sh /Jenkinstest/APITest/installer.sh'
+                            sh 'sudo docker exec pip3 install -r /Jenkinstest/APITestPy/requirements.txt'
+                            sh 'sudo docker exec python3 /Jenkinstest/APITestPy/main.py 192.168.20.7'
+
+                            sh 'sudo docker stop APITestPythonCameraInterface'
+                            sh 'sudo docker rm APITestPythonCameraInterface'
                         }
                     }
                 }
