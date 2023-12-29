@@ -58,7 +58,7 @@ pipeline {
                             sh 'sudo docker run -d -t -v /home/MechMindSDK:/home --name APITestInterface mecheyeenvimage'
                             sh 'sudo docker start APITestInterface'
                             sh 'sudo docker exec APITestInterface git clone https://github.com/changlelian/Jenkinstest.git'
-                            sh 'sudo docker exec APITestInterface sh mkdir /Jenkinstest/APITest/build'
+                            sh 'sudo docker exec APITestInterface sh mkdir -p /Jenkinstest/APITest/build'
                             sh 'sudo docker exec APITestInterface sh cmake /Jenkinstest/APITest/build/..'
                             sh 'sudo docker exec make'
                             sh 'echo "裹裹小牛hao"'
