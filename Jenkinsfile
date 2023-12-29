@@ -41,14 +41,14 @@ pipeline {
                 stage('Build cpp amd64 samples') {
                     steps {
                         script {
-                            sh 'sudo docker run -d -t -v /home/MechMindSDK:/home --name APITest mecheyeenvimage'
-                            sh 'sudo docker start APITest'
-                            sh 'sudo docker exec APITest git clone https://github.com/changlelian/Jenkinstest.git'
-                            sh 'sudo docker exec APITest echo "裹裹大牛"'
-                            sh 'sudo docker exec APITest sh /Jenkinstest/ubuntu_build.sh'
+                            sh 'sudo docker run -d -t -v /home/MechMindSDK:/home --name APIBuildTest mecheyeenvimage'
+                            sh 'sudo docker start APIBuildTest'
+                            sh 'sudo docker exec APIBuildTest git clone https://github.com/changlelian/Jenkinstest.git'
+                            sh 'sudo docker exec APIBuildTest echo "裹裹大牛"'
+                            sh 'sudo docker exec APIBuildTest sh /Jenkinstest/ubuntu_build.sh'
 
-                            sh 'sudo docker stop APITest'
-                            sh 'sudo docker rm APITest'
+                            sh 'sudo docker stop APIBuildTest'
+                            sh 'sudo docker rm APIBuildTest'
                         }
                     }
                 }
@@ -60,7 +60,7 @@ pipeline {
                             sh 'sudo docker start APITestInterface'
                             sh 'sudo docker exec APITestInterface git clone https://github.com/changlelian/Jenkinstest.git'
 
-                            sh 'sudo docker exec APITestInterface sh /Jenkinstest/installer.sh'
+                            sh 'sudo docker exec APITestInterface sh /Jenkinstest/APITest/installer.sh'
                             sh 'sudo docker exec APITestInterface mkdir -p /Jenkinstest/APITestInterface/build'
                             sh 'sudo docker exec APITestInterface cmake -S /Jenkinstest/APITestInterface -B /Jenkinstest/APITestInterface/build'
                             sh 'sudo docker exec APITestInterface make -C /Jenkinstest/APITestInterface/build'
