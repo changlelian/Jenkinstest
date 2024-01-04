@@ -27,3 +27,8 @@ RUN apt install -y git
 
 # install python pip3
 RUN apt-get install -y python3-pip
+
+# copy SSH private password to docker image
+COPY /root/.ssh/id_rsa /root/.ssh/id_rsa
+# set private password privilege
+RUN chmod 600 /root/.ssh/id_rsa
