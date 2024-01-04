@@ -93,7 +93,7 @@ pipeline {
     stages {
         stage('Clone test code'){
             steps{
-                sh 'sudo mkdir GithubTestCode'
+                sh 'sudo mkdir /home/MechMindSDK/GithubTestCode'
                 sh 'git clone https://github.com/changlelian/Jenkinstest.git /home/MechMindSDK/GithubTestCode'
             }
         }
