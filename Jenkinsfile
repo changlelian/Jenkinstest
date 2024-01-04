@@ -99,17 +99,17 @@ pipeline {
 
         stage('Parallel execute Stages') {
             parallel {
-                stage('Build cpp amd64 samples') {
-                    steps {
-                        script {
-                            sh 'sudo docker run -d -t -v /home/mech_mind_sdk/MechMindSDK:/home --name APIBuildTest mecheyeenvimage'
-                            sh 'sudo docker start APIBuildTest'
-                            sh 'sudo docker exec APIBuildTest sh /home/GithubTestCode/ubuntu_build.sh'
-                            sh 'sudo docker stop APIBuildTest'
-                            sh 'sudo docker rm APIBuildTest'
-                        }
-                    }
-                }
+                // stage('Build cpp amd64 samples') {
+                //     steps {
+                //         script {
+                //             sh 'sudo docker run -d -t -v /home/mech_mind_sdk/MechMindSDK:/home --name APIBuildTest mecheyeenvimage'
+                //             sh 'sudo docker start APIBuildTest'
+                //             sh 'sudo docker exec APIBuildTest sh /home/GithubTestCode/ubuntu_build.sh'
+                //             sh 'sudo docker stop APIBuildTest'
+                //             sh 'sudo docker rm APIBuildTest'
+                //         }
+                //     }
+                // }
 
                 stage('Test cpp camera interface in linux') {
                     steps {
