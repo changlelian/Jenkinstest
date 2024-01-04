@@ -23,7 +23,7 @@ pipeline {
                         script {
                             sh 'sudo docker run -d -t -v /home/MechMindSDK:/home --name APITestCameraInterface mecheyeenvimage'
                             sh 'sudo docker start APITestCameraInterface'
-                            sh 'sudo docker exec APITestCameraInterface git clone git@github.com:changlelian/Jenkinstest.git'
+                            sh 'sudo docker exec APITestCameraInterface git clone https://github.com/changlelian/Jenkinstest.git'
 
                             // sh 'sudo docker exec APITestCameraInterface sh /Jenkinstest/APITest/installer.sh'
                             // sh 'sudo docker exec APITestCameraInterface mkdir -p /Jenkinstest/APITest/build'
