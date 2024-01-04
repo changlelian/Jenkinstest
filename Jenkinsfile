@@ -152,7 +152,7 @@ pipeline {
                             sh 'sudo docker start APITestPythonCameraInterface'
                             sh 'sudo docker exec APITestPythonCameraInterface python3 -m pip install --upgrade pip -i https://pypi.tuna.tsinghua.edu.cn/simple'
 
-                            // sh 'sudo docker exec APITestPythonCameraInterface sh /Jenkinstest/APITestPy/installer.sh'
+                            sh 'sudo docker exec APITestPythonCameraInterface sh /home/GithubTestCode/APITestPy/installer.sh'
                             // sh 'sudo docker exec APITestPythonCameraInterface python3 -m pip install /home/*38*.whl -i https://pypi.tuna.tsinghua.edu.cn/simple'
                             sh 'sudo docker exec APITestPythonCameraInterface python3 -m pip install -r /home/GithubTestCode/APITestPy/requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple'
                             sh 'sudo docker exec APITestPythonCameraInterface python3 /home/GithubTestCode/APITestPy/main.py 192.168.20.56'
