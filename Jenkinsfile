@@ -93,7 +93,7 @@ pipeline {
     stages {
         stage('Clone test code'){
             steps{
-                sh 'git clone https://github.com/changlelian/Jenkinstest.git /home/MechMindSDK/GithubTestCode'
+                sh 'git clone https://github.com/changlelian/Jenkinstest.git /home/mech_mind_sdk/MechMindSDK/GithubTestCode'
             }
         }
 
@@ -102,7 +102,7 @@ pipeline {
                 stage('Build cpp amd64 samples') {
                     steps {
                         script {
-                            sh 'sudo docker run -d -t -v /home/MechMindSDK:/home --name APIBuildTest mecheyeenvimage'
+                            sh 'sudo docker run -d -t -v /home/mech_mind_sdk/MechMindSDK:/home --name APIBuildTest mecheyeenvimage'
                             sh 'sudo docker start APIBuildTest'
                             sh 'sudo docker exec APIBuildTest sh /Jenkinstest/GithubTestCode/ubuntu_build.sh'
                             sh 'sudo docker stop APIBuildTest'
