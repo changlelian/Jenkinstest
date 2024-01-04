@@ -93,7 +93,8 @@ pipeline {
     stages {
         stage('Release Environment'){
             steps{
-                sh 'echo "裹裹小二牛hao"'
+                sh 'sudo mkdir GithubTestCode'
+                sh 'git clone https://github.com/changlelian/Jenkinstest.git /home/MechMindSDK/GithubTestCode'
             }
         }
 
