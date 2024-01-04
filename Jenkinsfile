@@ -128,19 +128,37 @@ pipeline {
                 //     }
                 // }
 
-                stage('Test cpp profiler interface in linux') {
+                // stage('Test cpp profiler interface in linux') {
+                //     steps {
+                //         script {
+                //             sh 'sudo docker run -d -t -v /home/mech_mind_sdk/MechMindSDK:/home --name APITestProfilerInterface mecheyeenvimage'
+                //             sh 'sudo docker start APITestProfilerInterface'
+                //             sh 'sudo docker exec APITestProfilerInterface sh /home/GithubTestCode/APITest/installer.sh'
+                //             sh 'sudo docker exec APITestProfilerInterface mkdir -p /home/GithubTestCode/APITest/build'
+                //             sh 'sudo docker exec APITestProfilerInterface cmake -S /home/GithubTestCode/APITest -B /home/GithubTestCode/APITest/build'
+                //             sh 'sudo docker exec APITestProfilerInterface make -C /home/GithubTestCode/APITest/build'
+                //             sh 'sudo docker exec APITestProfilerInterface /home/GithubTestCode/APITest/build/TestMechMindSDK --gtest_filter=*Profiler* --ip=192.168.20.217'
+
+                //             sh 'sudo docker stop APITestProfilerInterface'
+                //             sh 'sudo docker rm APITestProfilerInterface'
+                //         }
+                //     }
+                // }
+
+                stage('Test python camera interface in linux') {
                     steps {
                         script {
-                            sh 'sudo docker run -d -t -v /home/mech_mind_sdk/MechMindSDK:/home --name APITestProfilerInterface mecheyeenvimage'
-                            sh 'sudo docker start APITestProfilerInterface'
-                            sh 'sudo docker exec APITestProfilerInterface sh /home/GithubTestCode/APITest/installer.sh'
-                            sh 'sudo docker exec APITestProfilerInterface mkdir -p /home/GithubTestCode/APITest/build'
-                            sh 'sudo docker exec APITestProfilerInterface cmake -S /home/GithubTestCode/APITest -B /home/GithubTestCode/APITest/build'
-                            sh 'sudo docker exec APITestProfilerInterface make -C /home/GithubTestCode/APITest/build'
-                            sh 'sudo docker exec APITestProfilerInterface /home/GithubTestCode/APITest/build/TestMechMindSDK --gtest_filter=*Profiler* --ip=192.168.20.217'
+                            sh 'sudo docker run -d -t -v /home/MechMindSDK:/home --name APITestPythonCameraInterface mecheyeenvimage'
+                            sh 'sudo docker start APITestPythonCameraInterface'
+                            sh 'sudo docker exec APITestPythonCameraInterface python3 -m pip install --upgrade pip -i https://pypi.tuna.tsinghua.edu.cn/simple'
 
-                            sh 'sudo docker stop APITestProfilerInterface'
-                            sh 'sudo docker rm APITestProfilerInterface'
+                            // sh 'sudo docker exec APITestPythonCameraInterface sh /Jenkinstest/APITestPy/installer.sh'
+                            // sh 'sudo docker exec APITestPythonCameraInterface python3 -m pip install /home/*38*.whl -i https://pypi.tuna.tsinghua.edu.cn/simple'
+                            sh 'sudo docker exec APITestPythonCameraInterface python3 -m pip install -r /home/GithubTestCode/APITestPy/requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple'
+                            sh 'sudo docker exec APITestPythonCameraInterface python3 /home/GithubTestCode/APITestPy/main.py 192.168.20.56'
+
+                            sh 'sudo docker stop APITestPythonCameraInterface'
+                            sh 'sudo docker rm APITestPythonCameraInterface'
                         }
                     }
                 }
