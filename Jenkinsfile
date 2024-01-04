@@ -1,16 +1,17 @@
 pipeline {
     agent any
     stages {
-        stage('Release Environment'){
+        stage('gitclone Environment'){
             steps{
-                    sh 'git clone https://github.com/changlelian/Jenkinstest.git /home/MechMindSDK'
+                    sh 'sudo mkdir build GithubTestCode'
+                    sh 'git clone https://github.com/changlelian/Jenkinstest.git /home/MechMindSDK/GithubTestCode'
         }
 
-        stage('Parallel Stages') {     
-            parallel {
-                stage('Build cpp amd64 samples') {
-                    steps {
-                        script {
+        // stage('Parallel Stages') {     
+        //     parallel {
+        //         stage('Build cpp amd64 samples') {
+        //             steps {
+        //                 script {
                             // sh 'sudo docker run -d -t -v /home/MechMindSDK:/home --name APIBuildTest mecheyeenvimage'
                             // sh 'sudo docker start APIBuildTest'
                             // sh 'sudo docker exec APIBuildTest git clone https://github.com/changlelian/Jenkinstest.git'
@@ -19,9 +20,9 @@ pipeline {
 
                             // sh 'sudo docker stop APIBuildTest'
                             // sh 'sudo docker rm APIBuildTest'
-                        }
-                    }
-                }
+                //         }
+                //     }
+                // }
 
                 // stage('Test cpp camera interface in linux') {
                 //     steps {
@@ -79,8 +80,8 @@ pipeline {
                 //         }
                 //     }
                 // }
-            }
-        }
+            // }
+        // }
 
         stage('Release Environment'){
             steps{
@@ -88,4 +89,5 @@ pipeline {
             }
         }
     }
+}
 }
