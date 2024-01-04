@@ -93,9 +93,7 @@ pipeline {
     stages {
         stage('Clone test code'){
             steps{
-                sh 'sudo mkdir /home/MechMindSDK/GithubTestCode'
-                sh 'sudo chown jenkins_user:jenkins_group /home/MechMindSDK/GithubTestCode'
-                sh 'git clone https://github.com/changlelian/Jenkinstest.git /home/MechMindSDK/GithubTestCode'
+                sh 'git clone https://github.com/changlelian/Jenkinstest.git /home/MechMindSDK'
             }
         }
 
@@ -106,7 +104,7 @@ pipeline {
                         script {
                             sh 'sudo docker run -d -t -v /home/MechMindSDK:/home --name APIBuildTest mecheyeenvimage'
                             sh 'sudo docker start APIBuildTest'
-                            sh 'sudo docker exec APIBuildTest sh /Jenkinstest/GithubTestCode/ubuntu_build.sh'
+                            sh 'sudo docker exec APIBuildTest sh /Jenkinstest/ubuntu_build.sh'
                             sh 'sudo docker stop APIBuildTest'
                             sh 'sudo docker rm APIBuildTest'
                         }
