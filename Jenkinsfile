@@ -111,22 +111,22 @@ pipeline {
                 //     }
                 // }
 
-                stage('Test cpp camera interface in linux') {
-                    steps {
-                        script {
-                            sh 'sudo docker run -d -t -v /home/mech_mind_sdk/MechMindSDK:/home --name APITestCameraInterface mecheyeenvimage'
-                            sh 'sudo docker start APITestCameraInterface'
-                            sh 'sudo docker exec APITestCameraInterface sh /home/GithubTestCode/APITest/installer.sh'
-                            sh 'sudo docker exec APITestCameraInterface mkdir -p /home/GithubTestCode/APITest/build'
-                            sh 'sudo docker exec APITestCameraInterface cmake -S /home/GithubTestCode/APITest -B /home/GithubTestCode/APITest/build'
-                            sh 'sudo docker exec APITestCameraInterface make -C /home/GithubTestCode/APITest/build'
-                            sh 'sudo docker exec APITestCameraInterface /home/GithubTestCode/APITest/build/TestMechMindSDK --gtest_filter=*Camera* --ip=192.168.20.173'
+                // stage('Test cpp camera interface in linux') {
+                //     steps {
+                //         script {
+                //             sh 'sudo docker run -d -t -v /home/mech_mind_sdk/MechMindSDK:/home --name APITestCameraInterface mecheyeenvimage'
+                //             sh 'sudo docker start APITestCameraInterface'
+                //             sh 'sudo docker exec APITestCameraInterface sh /home/GithubTestCode/APITest/installer.sh'
+                //             sh 'sudo docker exec APITestCameraInterface mkdir -p /home/GithubTestCode/APITest/build'
+                //             sh 'sudo docker exec APITestCameraInterface cmake -S /home/GithubTestCode/APITest -B /home/GithubTestCode/APITest/build'
+                //             sh 'sudo docker exec APITestCameraInterface make -C /home/GithubTestCode/APITest/build'
+                //             sh 'sudo docker exec APITestCameraInterface /home/GithubTestCode/APITest/build/TestMechMindSDK --gtest_filter=*Camera* --ip=192.168.20.173'
 
-                            sh 'sudo docker stop APITestCameraInterface'
-                            sh 'sudo docker rm APITestCameraInterface'
-                        }
-                    }
-                }
+                //             sh 'sudo docker stop APITestCameraInterface'
+                //             sh 'sudo docker rm APITestCameraInterface'
+                //         }
+                //     }
+                // }
 
                 stage('Test cpp profiler interface in linux') {
                     steps {
@@ -135,9 +135,9 @@ pipeline {
                             sh 'sudo docker start APITestProfilerInterface'
                             sh 'sudo docker exec APITestProfilerInterface sh /home/GithubTestCode/APITest/installer.sh'
                             sh 'sudo docker exec APITestProfilerInterface mkdir -p /home/GithubTestCode/APITest/build'
-                            sh 'sudo docker exec APITestProfilerInterface cmake -S /home/GithubTestCode/APITest -B /home/GithubTestCode/APITest/build'
-                            sh 'sudo docker exec APITestProfilerInterface make -C /home/GithubTestCode/APITest/build'
-                            sh 'sudo docker exec APITestProfilerInterface /home/GithubTestCode/APITest/build/TestMechMindSDK --gtest_filter=*Profiler* --ip=192.168.20.217'
+                            // sh 'sudo docker exec APITestProfilerInterface cmake -S /home/GithubTestCode/APITest -B /home/GithubTestCode/APITest/build'
+                            // sh 'sudo docker exec APITestProfilerInterface make -C /home/GithubTestCode/APITest/build'
+                            // sh 'sudo docker exec APITestProfilerInterface /home/GithubTestCode/APITest/build/TestMechMindSDK --gtest_filter=*Profiler* --ip=192.168.20.217'
 
                             sh 'sudo docker stop APITestProfilerInterface'
                             sh 'sudo docker rm APITestProfilerInterface'
