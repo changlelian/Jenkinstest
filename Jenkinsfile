@@ -1,7 +1,12 @@
 pipeline {
     agent any
     stages {
-        stage('Parallel Stages') {
+        stage('Release Environment'){
+            steps{
+                    sh 'git clone https://github.com/changlelian/Jenkinstest.git /home/MechMindSDK'
+        }
+
+        stage('Parallel Stages') {     
             parallel {
                 stage('Build cpp amd64 samples') {
                     steps {
