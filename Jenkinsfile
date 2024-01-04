@@ -135,8 +135,8 @@ pipeline {
                             sh 'sudo docker start APITestProfilerInterface'
                             sh 'sudo docker exec APITestProfilerInterface sh /home/GithubTestCode/APITest/installer.sh'
                             sh 'sudo docker exec APITestProfilerInterface mkdir -p /home/GithubTestCode/APITest/build'
-                            // sh 'sudo docker exec APITestProfilerInterface cmake -S /home/GithubTestCode/APITest -B /home/GithubTestCode/APITest/build'
-                            // sh 'sudo docker exec APITestProfilerInterface make -C /home/GithubTestCode/APITest/build'
+                            sh 'sudo docker exec APITestProfilerInterface cmake -S /home/GithubTestCode/APITest -B /home/GithubTestCode/APITest/build'
+                            //sh 'sudo docker exec APITestProfilerInterface make -C /home/GithubTestCode/APITest/build'
                             // sh 'sudo docker exec APITestProfilerInterface /home/GithubTestCode/APITest/build/TestMechMindSDK --gtest_filter=*Profiler* --ip=192.168.20.217'
 
                             sh 'sudo docker stop APITestProfilerInterface'
