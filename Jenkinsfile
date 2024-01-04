@@ -148,7 +148,7 @@ pipeline {
                 stage('Test python camera interface in linux') {
                     steps {
                         script {
-                            sh 'sudo docker run -d -t -v /home/MechMindSDK:/home --name APITestPythonCameraInterface mecheyeenvimage'
+                            sh 'sudo docker run -d -t -v /home/mech_mind_sdk/MechMindSDK:/home --name APITestPythonCameraInterface mecheyeenvimage'
                             sh 'sudo docker start APITestPythonCameraInterface'
                             sh 'sudo docker exec APITestPythonCameraInterface python3 -m pip install --upgrade pip -i https://pypi.tuna.tsinghua.edu.cn/simple'
 
