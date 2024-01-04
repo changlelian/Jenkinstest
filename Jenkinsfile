@@ -94,7 +94,7 @@ pipeline {
         stage('Clone test code'){
             steps{
                 sh 'sudo mkdir /home/MechMindSDK/GithubTestCode'
-                sh 'chmod 777 /home/MechMindSDK/GithubTestCode'
+                sh 'sudo chown jenkins_user:jenkins_group /home/MechMindSDK/GithubTestCode'
                 sh 'git clone https://github.com/changlelian/Jenkinstest.git /home/MechMindSDK/GithubTestCode'
             }
         }
