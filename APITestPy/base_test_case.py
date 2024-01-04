@@ -6,9 +6,9 @@ from mecheye.shared import *
 from mecheye.area_scan_3d_camera import *
 from mecheye.profiler_utils import *
 
-
+work_space = os.path.dirname(__file__)
 def read_json_file():
-    json_path = r"./config.json"
+    json_path = os.path.join(work_space,"config.json")
     with open(json_path, "r", encoding="utf-8") as f:
         return dict(json.load(f))
 
@@ -20,7 +20,7 @@ class BaseTestCase(unittest.TestCase):
         cls.profiler = Profiler()
 
         ip_info = os.environ.get('IP_INFO')
-        print(f"当前测试相机：{ip_info}")
+        print(f"Current test ip: {ip_info}")
         cls.config_file = read_json_file()
         print(get_api_version_info())
 
@@ -29,7 +29,7 @@ class BaseTestCase(unittest.TestCase):
 
         if not camera_connect_status.is_ok() and not profiler_connect_status.is_ok():
             print(camera_connect_status.error_description)
-            print("相机连接失败，测试程序退出终止!!!")
+            print("MechEye-API connect deviced fail, program exit unormal!")
             os._exit(1)
 
         elif camera_connect_status.is_ok():
@@ -57,6 +57,6 @@ class BaseTestCase(unittest.TestCase):
 
     @classmethod
     def tearDownClass(cls):
-        print("用例执行结束，相机断开！")
+        print("Test case execute over, disconnect!")
         cls.camera.disconnect()
 
