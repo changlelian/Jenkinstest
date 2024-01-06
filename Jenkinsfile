@@ -93,6 +93,9 @@ pipeline {
     stages {
         stage('Clone test code'){
             steps{
+                sh 'sudo rm -rf /home/mech_mind_sdk/MechMindSDK/GithubTestCode/* \
+                                /home/mech_mind_sdk/MechMindSDK/GithubTestCode/.git/'
+                                
                 sh 'git clone https://github.com/changlelian/Jenkinstest.git /home/mech_mind_sdk/MechMindSDK/GithubTestCode'
             }
         }
