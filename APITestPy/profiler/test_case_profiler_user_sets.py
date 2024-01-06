@@ -1,3 +1,4 @@
+import os
 from common import *
 from base_test_case import BaseTestCase
 
@@ -83,7 +84,8 @@ class TestCaseValidCameraUserSets(BaseTestCase):
 
 
 class TestCaseValidSaveLoadFile(BaseTestCase):
-    file_name = "files/test.json"
+    run_path = os.path.dirname(__file__)
+    file_name = os.path.join(run_path, 'file', 'test.json')
 
     def test_case_a_save_file(self):
         save_status = self.user_set_manager.save_to_file(self.file_name)

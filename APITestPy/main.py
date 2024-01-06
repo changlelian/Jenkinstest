@@ -2,6 +2,7 @@ import os
 import sys
 import time
 import unittest
+import pytest
 from area import *
 from BeautifulReport import BeautifulReport
 from mecheye.area_scan_3d_camera import *
@@ -22,26 +23,34 @@ if __name__ == '__main__':
     camera_connect_status = camera.connect(ip_info, 1000000)
     profiler_connect_status = profiler.connect(ip_info, 1000000)
 
+
     test_case_vector = []
     if camera_connect_status.is_ok():
         test_suite1 = test_loader.discover(os.path.join(run_path, 'area'), pattern='test_case*.py')
         # test_suite2 = test_loader.discover('area/capture', pattern='test_case*.py')
-        test_suite3 = test_loader.discover(os.path.join(run_path, 'area', 'parameter'), pattern='test_case*.py')
-        test_case_vector.append(test_suite1)
+        # test_suite3 = test_loader.discover(os.path.join(run_path, 'area', 'parameter'), pattern='test_case*.py')
+        # test_case_vector.append(test_suite1)
         # test_case_vector.append(test_suite2)
-        test_case_vector.append(test_suite3)
+        #test_case_vector.append(test_suite3)
+
+        test_case_vector.append(os.path.join(run_path, 'area'))
+        test_case_vector.append(os.path.join(run_path, 'area', 'parameter'))
 
     elif profiler_connect_status.is_ok():
-        test_suite1 = test_loader.discover(os.path.join(run_path, 'profiler'), pattern='test_case*.py')
-        test_suite2 = test_loader.discover(os.path.join(run_path, 'profiler', 'capture'), pattern='test_case*.py')
-        test_suite3 = test_loader.discover(os.path.join(run_path, 'profiler', 'parameter'), pattern='test_case*.py')
-        test_case_vector.append(test_suite1)
-        test_case_vector.append(test_suite2)
-        test_case_vector.append(test_suite3)
+        # test_suite1 = test_loader.discover(os.path.join(run_path, 'profiler'), pattern='test_case*.py')
+        # test_suite2 = test_loader.discover(os.path.join(run_path, 'profiler', 'capture'), pattern='test_case*.py')
+        # test_suite3 = test_loader.discover(os.path.join(run_path, 'profiler', 'parameter'), pattern='test_case*.py')
+        # test_case_vector.append(test_suite1)
+        # test_case_vector.append(test_suite2)
+        # test_case_vector.append(test_suite3)
 
-    combined_test_suite = unittest.TestSuite(test_case_vector)
-    runner = unittest.TextTestRunner()
-    result = runner.run(combined_test_suite)
+        test_case_vector.append(os.path.join(run_path, 'profiler'))
+        test_case_vector.append(os.path.join(run_path, 'profiler', 'capture'))
+        test_case_vector.append(os.path.join(run_path, 'profiler', 'parameter'))
+
+    # combined_test_suite = unittest.TestSuite(test_case_vector)
+    # runner = unittest.TextTestRunner()
+    # result = runner.run(combined_test_suite)
 
     # cur_time = time.strftime('%Y-%m-%d_%H-%M-%S', time.localtime(time.time()))
     # file_name = 'MechEyeAPI_{}_自动化测试报告{}'.format(str(ip_info), str(cur_time))
@@ -51,4 +60,10 @@ if __name__ == '__main__':
     #               description='MechEyeAPI结构光相机自动化测试报告',
     #               report_dir='./report', theme='theme_default')
 
+    allure_results_dir = os.path.join(run_path, 'report')
+    pytest_args = []
+    for test_dir in test_case_vector:
+        pytest_args.append(test_dir)
+    pytest_args += ['--alluredir', allure_results_dir, '-v']
 
+    sys.exit(pytest.main(pytest_args))

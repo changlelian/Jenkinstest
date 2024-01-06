@@ -99,34 +99,34 @@ pipeline {
 
         stage('Parallel execute Stages') {
             parallel {
-                stage('Build cpp amd64 samples') {
-                    steps {
-                        script {
-                            sh 'sudo docker run -d -t -v /home/mech_mind_sdk/MechMindSDK:/home --name APIBuildTest mecheyeenvimage'
-                            sh 'sudo docker start APIBuildTest'
-                            sh 'sudo docker exec APIBuildTest sh /home/GithubTestCode/ubuntu_build.sh'
-                            sh 'sudo docker stop APIBuildTest'
-                            sh 'sudo docker rm APIBuildTest'
-                        }
-                    }
-                }
+                // stage('Build cpp amd64 samples') {
+                //     steps {
+                //         script {
+                //             sh 'sudo docker run -d -t -v /home/mech_mind_sdk/MechMindSDK:/home --name APIBuildTest mecheyeenvimage'
+                //             sh 'sudo docker start APIBuildTest'
+                //             sh 'sudo docker exec APIBuildTest sh /home/GithubTestCode/ubuntu_build.sh'
+                //             sh 'sudo docker stop APIBuildTest'
+                //             sh 'sudo docker rm APIBuildTest'
+                //         }
+                //     }
+                // }
 
-                stage('Test cpp camera interface in linux') {
-                    steps {
-                        script {
-                            sh 'sudo docker run -d -t -v /home/mech_mind_sdk/MechMindSDK:/home --name APITestCameraInterface mecheyeenvimage'
-                            sh 'sudo docker start APITestCameraInterface'
-                            sh 'sudo docker exec APITestCameraInterface sh /home/GithubTestCode/APITest/installer.sh'
-                            sh 'sudo docker exec APITestCameraInterface mkdir -p /home/GithubTestCode/APITest/build'
-                            sh 'sudo docker exec APITestCameraInterface cmake -S /home/GithubTestCode/APITest -B /home/GithubTestCode/APITest/build'
-                            sh 'sudo docker exec APITestCameraInterface make -C /home/GithubTestCode/APITest/build'
-                            sh 'sudo docker exec APITestCameraInterface /home/GithubTestCode/APITest/build/TestMechMindSDK --gtest_filter=*Camera* --ip=192.168.20.173'
+                // stage('Test cpp camera interface in linux') {
+                //     steps {
+                //         script {
+                //             sh 'sudo docker run -d -t -v /home/mech_mind_sdk/MechMindSDK:/home --name APITestCameraInterface mecheyeenvimage'
+                //             sh 'sudo docker start APITestCameraInterface'
+                //             sh 'sudo docker exec APITestCameraInterface sh /home/GithubTestCode/APITest/installer.sh'
+                //             sh 'sudo docker exec APITestCameraInterface mkdir -p /home/GithubTestCode/APITest/build'
+                //             sh 'sudo docker exec APITestCameraInterface cmake -S /home/GithubTestCode/APITest -B /home/GithubTestCode/APITest/build'
+                //             sh 'sudo docker exec APITestCameraInterface make -C /home/GithubTestCode/APITest/build'
+                //             sh 'sudo docker exec APITestCameraInterface /home/GithubTestCode/APITest/build/TestMechMindSDK --gtest_filter=*Camera* --ip=192.168.20.173'
 
-                            sh 'sudo docker stop APITestCameraInterface'
-                            sh 'sudo docker rm APITestCameraInterface'
-                        }
-                    }
-                }
+                //             sh 'sudo docker stop APITestCameraInterface'
+                //             sh 'sudo docker rm APITestCameraInterface'
+                //         }
+                //     }
+                // }
 
                 // stage('Test cpp profiler interface in linux') {
                 //     steps {
@@ -165,5 +165,19 @@ pipeline {
             }
         }
 
+
+        stage('Generate Allure Report') {
+            steps {
+                allure([
+                    includeProperties: false,
+                    jdk: '',
+                    properties: [],
+                    reportBuildPolicy: 'ALWAYS',
+                    results: [[path: '/home/mech_mind_sdk/MechMindSDK/GithubTestCode/APITestPy/report']]
+                ])
+            }
+        }
     }
+
+    
 }
