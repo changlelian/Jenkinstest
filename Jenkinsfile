@@ -95,7 +95,7 @@ pipeline {
             steps{
                 sh 'sudo rm -rf /home/mech_mind_sdk/MechMindSDK/GithubTestCode/* \
                                 /home/mech_mind_sdk/MechMindSDK/GithubTestCode/.git/'
-                                
+
                 sh 'git clone https://github.com/changlelian/Jenkinstest.git /home/mech_mind_sdk/MechMindSDK/GithubTestCode'
             }
         }
@@ -169,15 +169,20 @@ pipeline {
         }
 
 
-        stage('Generate Allure Report') {
-            steps {
-                allure([
-                    includeProperties: false,
-                    jdk: '',
-                    properties: [],
-                    reportBuildPolicy: 'ALWAYS',
-                    results: [[path: '/home/mech_mind_sdk/MechMindSDK/GithubTestCode/APITestPy/report']]
-                ])
+        post {
+            always {
+                stage('Generate Allure Report') {
+                    steps {
+                        // Allure 报告的生成命令
+                        allure([
+                            includeProperties: false,
+                            jdk: '',
+                            properties: [],
+                            reportBuildPolicy: 'ALWAYS',
+                            results: [[path: '/home/mech_mind_sdk/MechMindSDK/GithubTestCode/APITestPy/report']]
+                        ])
+                    }
+                }
             }
         }
     }

@@ -7,6 +7,7 @@ from mecheye.area_scan_3d_camera import *
 from mecheye.profiler_utils import *
 
 work_space = os.path.dirname(__file__)
+
 def read_json_file():
     json_path = os.path.join(work_space,"config.json")
     with open(json_path, "r", encoding="utf-8") as f:
