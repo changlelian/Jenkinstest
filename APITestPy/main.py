@@ -15,6 +15,14 @@ if __name__ == '__main__':
     os.environ['IP_INFO'] = sys.argv.pop(1)
     ip_info = os.environ.get('IP_INFO')
     run_path = os.path.dirname(__file__)
+    report_path = os.path.join(run_path, 'report')
+    files_path = os.path.join(run_path, 'files')
+
+    if not os.path.exists(report_path):
+        os.makedirs(report_path)
+
+    if not os.path.exists(files_path):
+        os.makedirs(files_path)
 
     camera = Camera()
     profiler = Profiler()
