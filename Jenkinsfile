@@ -171,7 +171,6 @@ pipeline {
 
     post {
         always {
-            sh 'chmod 777 /home/mech_mind_sdk/MechMindSDK/GithubTestCode/APITestPy/report *'
             // Allure 报告的生成命令
             allure([
                 includeProperties: false,
@@ -180,6 +179,9 @@ pipeline {
                 reportBuildPolicy: 'ALWAYS',
                 results: [[path: '/home/mech_mind_sdk/MechMindSDK/GithubTestCode/APITestPy/report']]
             ])
+
+            sh 'chmod 777 /home/mech_mind_sdk/MechMindSDK/GithubTestCode/APITestPy/report *'
+
         }
     }
 
