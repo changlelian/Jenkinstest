@@ -167,21 +167,20 @@ pipeline {
                 }
             }
         }
+    }
 
-
-        post {
-            always {
-                stage('Generate Allure Report') {
-                    steps {
-                        // Allure 报告的生成命令
-                        allure([
-                            includeProperties: false,
-                            jdk: '',
-                            properties: [],
-                            reportBuildPolicy: 'ALWAYS',
-                            results: [[path: '/home/mech_mind_sdk/MechMindSDK/GithubTestCode/APITestPy/report']]
-                        ])
-                    }
+    post {
+        always {
+            stage('Generate Allure Report') {
+                steps {
+                    // Allure 报告的生成命令
+                    allure([
+                        includeProperties: false,
+                        jdk: '',
+                        properties: [],
+                        reportBuildPolicy: 'ALWAYS',
+                        results: [[path: '/home/mech_mind_sdk/MechMindSDK/GithubTestCode/APITestPy/report']]
+                    ])
                 }
             }
         }
