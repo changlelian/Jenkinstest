@@ -171,18 +171,16 @@ pipeline {
 
     post {
         always {
-            sh 'mkdir -p allure-results &&  mv /home/mech_mind_sdk/MechMindSDK/GithubTestCode/APITestPy/report/* allure-results/'
-
             // Allure 报告的生成命令
             allure([
                 includeProperties: false,
                 jdk: '',
                 properties: [],
                 reportBuildPolicy: 'ALWAYS',
-                results: [[path: 'allure-results']]
+                results: [[path: '/home/mech_mind_sdk/MechMindSDK/GithubTestCode/APITestPy/report']]
             ])
 
-            sh 'chmod -R 777 allure-results'
+            sh 'chmod -R 777 /home/mech_mind_sdk/MechMindSDK/GithubTestCode/APITestPy/report *'
 
         }
     }
