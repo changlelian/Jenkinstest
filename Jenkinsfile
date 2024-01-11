@@ -158,7 +158,7 @@ pipeline {
                             sh 'sudo docker exec APITestPythonCameraInterface sh /home/GithubTestCode/APITestPy/installer.sh'
                             // sh 'sudo docker exec APITestPythonCameraInterface python3 -m pip install /home/*38*.whl -i https://pypi.tuna.tsinghua.edu.cn/simple'
                             sh 'sudo docker exec APITestPythonCameraInterface python3 -m pip install -r /home/GithubTestCode/APITestPy/requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple'
-                            sh 'sudo docker exec APITestPythonCameraInterface python3 /home/GithubTestCode/APITestPy/main.py 192.168.20.254'
+                            sh 'sudo docker exec APITestPythonCameraInterface python3 /home/GithubTestCode/APITestPy/main.py 192.168.20.118'
 
                             sh 'sudo docker stop APITestPythonCameraInterface'
                             sh 'sudo docker rm APITestPythonCameraInterface'
@@ -171,20 +171,16 @@ pipeline {
 
     post {
         always {
-            sh 'sudo chown -R jenkins:jenkins /home/mech_mind_sdk/MechMindSDK/GithubTestCode/APITestPy/report'
-            sh 'sudo mkdir -p allure-results'
-            sh 'sudo cp /home/mech_mind_sdk/MechMindSDK/GithubTestCode/APITestPy/report/*.json allure-results/'
-
             // Allure 报告的生成命令
             allure([
                 includeProperties: false,
                 jdk: '',
                 properties: [],
                 reportBuildPolicy: 'ALWAYS',
-                results: [[path: 'allure-results']]
+                results: [[path: '/home/mech_mind_sdk/MechMindSDK/GithubTestCode/APITestPy/report']]
             ])
 
-
+            sh 'chmod 777 /home/mech_mind_sdk/MechMindSDK/GithubTestCode/APITestPy/report *'
 
         }
     }
