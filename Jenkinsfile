@@ -93,7 +93,8 @@ pipeline {
                 reportBuildPolicy: 'ALWAYS',
                 results: [[path: '/home/mech_mind_sdk/MechMindSDK/GithubTestCode/APITestPy/report']]
             ])
-
+            
+            sh 'sudo docker stop APITestCameraInterface && sudo docker rm APITestCameraInterface'
             sh 'sudo docker stop APITestPythonCameraInterface && sudo docker rm APITestPythonCameraInterface'
 
         }
