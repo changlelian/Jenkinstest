@@ -94,7 +94,6 @@ pipeline {
                 results: [[path: '/home/mech_mind_sdk/MechMindSDK/GithubTestCode/APITestPy/report']]
             ])
 
-            sh 'sudo chmod 777 /home/mech_mind_sdk/MechMindSDK/GithubTestCode/APITestPy/report/*'
             sh 'sudo docker stop APITestPythonCameraInterface && sudo docker rm APITestPythonCameraInterface'
 
         }
