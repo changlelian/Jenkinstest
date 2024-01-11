@@ -81,7 +81,7 @@ pipeline {
 
     post {
         always {
-
+            sh 'sudo rm -rf /var/lib/jenkins/workspace/MMIND_main/allure-results/'
             // 将测试报告文件移动到jenkins默认的工作路径下
             sh 'mkdir -p allure-results && cp /home/mech_mind_sdk/MechMindSDK/GithubTestCode/APITestPy/report/*.json /var/lib/jenkins/workspace/MMIND_main/allure-results/'
 
