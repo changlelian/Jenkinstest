@@ -180,7 +180,7 @@ pipeline {
                 results: [[path: '/home/mech_mind_sdk/MechMindSDK/GithubTestCode/APITestPy/report']]
             ])
 
-            sh 'chmod 777 /home/mech_mind_sdk/MechMindSDK/GithubTestCode/APITestPy/report *'
+            sh 'chmod -R 777 /home/mech_mind_sdk/MechMindSDK/GithubTestCode/APITestPy/report'
 
         }
     }
