@@ -12,17 +12,17 @@ pipeline {
 
         stage('Parallel execute Stages') {
             parallel {
-                // stage('Build cpp amd64 samples') {
-                //     steps {
-                //         script {
-                //             sh 'sudo docker run -d -t -v /home/mech_mind_sdk/MechMindSDK:/home --name APIBuildTest mecheyeenvimage'
-                //             sh 'sudo docker start APIBuildTest'
-                //             sh 'sudo docker exec APIBuildTest sh /home/GithubTestCode/ubuntu_build.sh'
-                //             sh 'sudo docker stop APIBuildTest'
-                //             sh 'sudo docker rm APIBuildTest'
-                //         }
-                //     }
-                // }
+                stage('Build cpp amd64 samples') {
+                    steps {
+                        script {
+                            sh 'sudo docker run -d -t -v /home/mech_mind_sdk/MechMindSDK:/home --name APIBuildTest mecheyeenvimage'
+                            sh 'sudo docker start APIBuildTest'
+                            sh 'sudo docker exec APIBuildTest sh /home/GithubTestCode/ubuntu_build.sh'
+                            sh 'sudo docker stop APIBuildTest'
+                            sh 'sudo docker rm APIBuildTest'
+                        }
+                    }
+                }
 
                 // stage('Test cpp camera interface in linux') {
                 //     steps {
@@ -41,22 +41,22 @@ pipeline {
                 //     }
                 // }
 
-                // stage('Test cpp profiler interface in linux') {
-                //     steps {
-                //         script {
-                //             sh 'sudo docker run -d -t -v /home/mech_mind_sdk/MechMindSDK:/home --name APITestProfilerInterface mecheyeenvimage'
-                //             sh 'sudo docker start APITestProfilerInterface'
-                //             sh 'sudo docker exec APITestProfilerInterface sh /home/GithubTestCode/APITest/installer.sh'
-                //             sh 'sudo docker exec APITestProfilerInterface mkdir -p /home/GithubTestCode/APITest/build'
-                //             sh 'sudo docker exec APITestProfilerInterface cmake -S /home/GithubTestCode/APITest -B /home/GithubTestCode/APITest/build'
-                //             sh 'sudo docker exec APITestProfilerInterface make -C /home/GithubTestCode/APITest/build'
-                //             sh 'sudo docker exec APITestProfilerInterface /home/GithubTestCode/APITest/build/TestMechMindSDK --gtest_filter=*Profiler* --ip=192.168.20.217'
+                stage('Test cpp profiler interface in linux') {
+                    steps {
+                        script {
+                            sh 'sudo docker run -d -t -v /home/mech_mind_sdk/MechMindSDK:/home --name APITestProfilerInterface mecheyeenvimage'
+                            sh 'sudo docker start APITestProfilerInterface'
+                            sh 'sudo docker exec APITestProfilerInterface sh /home/GithubTestCode/APITest/installer.sh'
+                            sh 'sudo docker exec APITestProfilerInterface mkdir -p /home/GithubTestCode/APITest/build'
+                            sh 'sudo docker exec APITestProfilerInterface cmake -S /home/GithubTestCode/APITest -B /home/GithubTestCode/APITest/build'
+                            sh 'sudo docker exec APITestProfilerInterface make -C /home/GithubTestCode/APITest/build'
+                            sh 'sudo docker exec APITestProfilerInterface /home/GithubTestCode/APITest/build/TestMechMindSDK --gtest_filter=*Profiler* --ip=192.168.20.217'
 
-                //             sh 'sudo docker stop APITestProfilerInterface'
-                //             sh 'sudo docker rm APITestProfilerInterface'
-                //         }
-                //     }
-                // }
+                            sh 'sudo docker stop APITestProfilerInterface'
+                            sh 'sudo docker rm APITestProfilerInterface'
+                        }
+                    }
+                }
 
                 stage('Test python camera interface in linux') {
                     steps {
